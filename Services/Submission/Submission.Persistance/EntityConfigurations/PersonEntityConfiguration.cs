@@ -5,7 +5,7 @@ using Submission.Domain.Entities;
 
 namespace Submission.Persistance.EntityConfigurations
 {
-    public class PersonEntityConfiguration : EntityConfiguration<Person>
+    internal class PersonEntityConfiguration : EntityConfiguration<Person>
     {
         public override void Configure(EntityTypeBuilder<Person> builder)
         {

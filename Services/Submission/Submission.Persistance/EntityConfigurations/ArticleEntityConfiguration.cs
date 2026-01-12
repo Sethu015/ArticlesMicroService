@@ -24,5 +24,10 @@ internal class ArticleEntityConfiguration : EntityConfiguration<Article>
                .WithMany(j => j.Articles)
                .HasForeignKey(a => a.JournalId)
                .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasMany(a => a.Assets)
+            .WithOne(a => a.Article)
+            .HasForeignKey(a => a.ArticleId)
+            .OnDelete(DeleteBehavior.Cascade);
     }
 }

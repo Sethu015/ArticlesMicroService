@@ -19,7 +19,7 @@ namespace Blocks.EntityFramework
             return builder.HasConversion(BuildJsonListConverter<T>());
         }
 
-        private static ValueConverter<TCollection,string> BuildJsonListConverter<TCollection>()
+        public static ValueConverter<TCollection,string> BuildJsonListConverter<TCollection>()
         {
             Func<TCollection, string> serializeFunc = v => JsonSerializer.Serialize(v);
             Func<string, TCollection> deserializeFunc = v => JsonSerializer.Deserialize<TCollection>(v ?? "[]");

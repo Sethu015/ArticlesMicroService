@@ -10,6 +10,8 @@ namespace Submission.Persistance
         public virtual DbSet<Person> Persons { get; set; }
         public virtual DbSet<ArticleActor> ArticleActors { get; set; }
         public virtual DbSet<Author> Authors { get; set; }
+        public virtual DbSet<AssetTypeDefinition> AssetTypes { get; set; }
+        public virtual DbSet<Asset> Assets { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

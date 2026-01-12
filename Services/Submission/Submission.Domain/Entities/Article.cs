@@ -11,5 +11,8 @@
         public required Journal Journal { get; init; }
         public IReadOnlyList<ArticleActor> Actors => _actors.AsReadOnly();
         private readonly List<ArticleActor> _actors = new();
+
+        private readonly List<Asset> _assets = new();
+        public IReadOnlyList<Asset> Assets => _assets.AsReadOnly();
     }
 }

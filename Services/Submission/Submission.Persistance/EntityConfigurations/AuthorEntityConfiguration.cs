@@ -4,7 +4,7 @@ using Submission.Domain.Entities;
 
 namespace Submission.Persistance.EntityConfigurations
 {
-    public class AuthorEntityConfiguration : IEntityTypeConfiguration<Author>
+    internal class AuthorEntityConfiguration : IEntityTypeConfiguration<Author>
     {
         public void Configure(EntityTypeBuilder<Author> builder)
         {
