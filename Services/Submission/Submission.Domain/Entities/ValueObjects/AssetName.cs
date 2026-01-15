@@ -7,10 +7,10 @@ namespace Submission.Domain.Entities.ValueObjects
     {
         private AssetName(string value) => Value = value;
 
-        public static AssetName FromAssetType(AssetType value)
+        public static AssetName FromAssetType(AssetTypeDefinition assetTypeDefinition)
         {
             // Add validation logic here if needed
-            return new AssetName(value.ToString());
+            return new AssetName(assetTypeDefinition.Name.ToString());
         }
     }
 }

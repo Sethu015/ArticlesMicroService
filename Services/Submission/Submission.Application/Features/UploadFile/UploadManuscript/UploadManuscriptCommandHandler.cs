@@ -1,12 +1,22 @@
 ﻿
 namespace Submission.Application.Features.UploadFile.UploadManuscript
 {
-    public class UploadManuscriptCommandHandler(ArticleRepository articleRepository) : IRequestHandler<UploadManuscriptCommand, IdResponse>
+    public class UploadManuscriptCommandHandler(ArticleRepository articleRepository,Repository<AssetTypeDefinition> repository) : IRequestHandler<UploadManuscriptCommand, IdResponse>
     {
         public async Task<IdResponse> Handle(UploadManuscriptCommand request, CancellationToken cancellationToken)
         {
             var article = await articleRepository.GetByAsyncOrThrowAsync(request.ArticleId);
-            return new IdResponse(0);
+            var assetTypeDefenition = await repository.FindByIdAsync((int)request.AssetType);
+
+            Asset asset = null;
+            if(!assetTypeDefenition.AllowsMultipleAssets)
+                asset = article.Assets.SingleOrDefault(a => a.Type == assetTypeDefenition.Id);
+
+            if (asset is null)
+                asset = article.CreateAsset(assetTypeDefenition);
+            await articleRepository.SaveChangesAsync();
+
+            return new IdResponse(asset.Id);
         }
     }
 }

@@ -16,5 +16,15 @@ namespace Submission.Domain.Entities
                 ContributionAreas = contributionAreas
             });
         }
+
+        public Asset  CreateAsset(AssetTypeDefinition assetTypeDefinition)
+        {
+            var assetCount = _assets.Count(a => a.Type == assetTypeDefinition.Id);
+            if (assetTypeDefinition.MaxAssetCount < assetCount)
+                throw new DomainException($"The maximum number of files allowed for {assetTypeDefinition.Name.ToString()} was already reached");
+            Asset asset = Asset.Create(this, assetTypeDefinition);
+            _assets.Add(asset);
+            return asset;
+        }
     }
 }
