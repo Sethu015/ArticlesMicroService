@@ -17,3 +17,7 @@ global using Submission.Domain.Enums;
 
 //Persistence Usings
 global using Submission.Persistance.Repository;
+
+global using AssetTypeDefinitionRepository = 
+    Blocks.EntityFramework.CachedRepository<Submission.Persistance.SubmissionDbContext,
+        Submission.Domain.Entities.AssetTypeDefinition,Articles.Abstractions.Enums.AssetType>;

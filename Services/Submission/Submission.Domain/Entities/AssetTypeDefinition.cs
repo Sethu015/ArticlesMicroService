@@ -1,6 +1,8 @@
-﻿namespace Submission.Domain.Entities
+﻿using Blocks.Core.Cache;
+
+namespace Submission.Domain.Entities
 {
-    public class AssetTypeDefinition : EnumEntity<AssetType>
+    public class AssetTypeDefinition : EnumEntity<AssetType>, ICacheable
     {
         public byte MaxFileSizeInMB { get; set; }
         public int MaxFileSizeInBytes => MaxFileSizeInMB * 1024 * 1024;
