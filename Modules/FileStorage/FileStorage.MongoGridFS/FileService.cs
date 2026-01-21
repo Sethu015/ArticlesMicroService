@@ -36,9 +36,19 @@ namespace FileStorage.MongoGridFS
             return (stream, contentType);
         }
 
-        public Task<bool> TryDeleteFileAsync(string fileId)
+        public async Task<bool> TryDeleteFileAsync(string fileId)
         {
-            throw new NotImplementedException();
+            if(!ObjectId.TryParse(fileId, out var objectId))
+                return false;
+            try
+            {
+                await _bucket.DeleteAsync(objectId);
+                return true;
+            }
+            catch (GridFSFileNotFoundException)
+            {
+                return false;
+            }
         }
 
         public async Task<UploadResponse> UploadFileAsync(string filePath, IFormFile file, bool overwrite = false, Dictionary<string, string>? tags = null)

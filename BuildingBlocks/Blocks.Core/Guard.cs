@@ -4,5 +4,6 @@
     {
         public static void ThrowIfNullOrWhiteSpace(string value) => ArgumentException.ThrowIfNullOrWhiteSpace(value);
         public static void ThrowIfNotEqual<T>(T actual, T expected) where T : IEquatable<T> => ArgumentOutOfRangeException.ThrowIfNotEqual(actual, expected);
+        public static T AgainstNull<T>(T? value, string paramName) => value ?? throw new ArgumentNullException(paramName,$"Value cannot be null {paramName}");
     }
 }

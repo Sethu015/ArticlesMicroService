@@ -1,7 +1,12 @@
-﻿namespace FileStorage.MongoGridFS
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace FileStorage.MongoGridFS
 {
     public class MongoGridFSFileStorageOptions
     {
+        [Required]
+        public string ConnectionStringName { get; init; } = default!;
+        [Required]
         public string DatabaseName { get; set; } = default!;
         public string BucketName { get; set; } = "files";
         public int ChunkSizeInBytes { get; set; } = 1048576; // 1 MB
