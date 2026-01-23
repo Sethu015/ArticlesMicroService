@@ -15,6 +15,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\..\BuildingBlocks\Articles.Abstractions\Articles.Abstractions.csproj" />
     <ProjectReference Include="..\..\..\BuildingBlocks\Blocks.Mediatr\Blocks.Mediatr.csproj" />
+    <ProjectReference Include="..\..\..\Modules\FileStorage\FileStorage.Contracts\FileStorage.Contracts.csproj" />
     <ProjectReference Include="..\Submission.Persistance\Submission.Persistance.csproj" />
   </ItemGroup>
 
