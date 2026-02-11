@@ -7,10 +7,10 @@ namespace Auth.Persistance
 {
     public class AuthDbContext(DbContextOptions<AuthDbContext> dbContextOptions) : IdentityDbContext<User, Role, int>(dbContextOptions)
     {
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        protected override void OnModelCreating(ModelBuilder builder)
         {
-            base.OnConfiguring(optionsBuilder);
-            optionsBuilder.ApplyConfigurationsFromAssembly(GetType().Assembly);
+            base.OnModelCreating(builder);
+            builder.ApplyConfigurationsFromAssembly(GetType().Assembly);
         }
     }
 }
