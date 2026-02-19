@@ -31,7 +31,7 @@ namespace Auth.API.Features.CreateUser
 
             await PublishAsync(new UserCreated(user, resetPasswordToken));
 
-            await SendAsync(new CreateUserResponse(user.Email,userToBeCreated.Id,resetPasswordToken), cancellation: ct);
+            await Send.OkAsync(new CreateUserResponse(user.Email,userToBeCreated.Id,resetPasswordToken), cancellation: ct);
         }
     }
 }

@@ -55,6 +55,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmailService.Contracts", "M
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmailService.Smtp", "Modules\EmailService\EmailService.Smtp\EmailService.Smtp.csproj", "{5A3975C8-DA21-4882-B958-F132F36A3788}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blocks.AspNetCore", "BuildingBlocks\Blocks.AspNetCore\Blocks.AspNetCore.csproj", "{9F64705B-06C7-4561-B1E5-ACDED7FE9D83}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -137,6 +139,10 @@ Global
 		{5A3975C8-DA21-4882-B958-F132F36A3788}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5A3975C8-DA21-4882-B958-F132F36A3788}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5A3975C8-DA21-4882-B958-F132F36A3788}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9F64705B-06C7-4561-B1E5-ACDED7FE9D83}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9F64705B-06C7-4561-B1E5-ACDED7FE9D83}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9F64705B-06C7-4561-B1E5-ACDED7FE9D83}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9F64705B-06C7-4561-B1E5-ACDED7FE9D83}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -165,6 +171,7 @@ Global
 		{0755CCEC-748A-4DEA-85B6-AA00FE527208} = {01FF3799-107D-4220-B8BE-73BFF9DE529E}
 		{0A4ABE4F-72DC-4A2E-8C9C-C12ACB02062D} = {0755CCEC-748A-4DEA-85B6-AA00FE527208}
 		{5A3975C8-DA21-4882-B958-F132F36A3788} = {0755CCEC-748A-4DEA-85B6-AA00FE527208}
+		{9F64705B-06C7-4561-B1E5-ACDED7FE9D83} = {0CB2C521-486D-4D82-B6CA-F611F846CC4E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {BA88E612-A740-45A5-B102-E398D09673BC}
