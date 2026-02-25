@@ -8,9 +8,9 @@ namespace Blocks.Core.Extensions
         public static IServiceCollection AddAndValidateOptions<TOptions>(this IServiceCollection services,IConfiguration configuration)
             where TOptions : class
         {
-            var section = configuration.GetSection(nameof(TOptions));
+            var section = configuration.GetSection(typeof(TOptions).Name);
             if (!section.Exists())
-                throw new InvalidOperationException($"Configuration section '{nameof(TOptions)}' is missing.");
+                throw new InvalidOperationException($"Configuration section '{typeof(TOptions).Name}' is missing.");
 
             services
                 .AddOptions<TOptions>()
