@@ -1,7 +1,4 @@
-﻿using Auth.Domain.Events;
-using Auth.Domain.Users;
-using EmailService.Contracts;
-using FastEndpoints;
+﻿using EmailService.Contracts;
 using Microsoft.Extensions.Options;
 using Blocks.AspNetCore.Extensions;
 using Flurl;

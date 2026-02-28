@@ -2,6 +2,7 @@
 using Auth.Domain.Roles;
 using Auth.Domain.Users;
 using Auth.Persistance;
+using Blocks.Core.Extensions;
 using EmailService.Smtp;
 using FastEndpoints;
 using FastEndpoints.Swagger;
@@ -14,7 +15,7 @@ namespace Auth.API
     {
         public static IServiceCollection ConfigureApiOptions(this IServiceCollection services, IConfiguration configuration)
         {
-            //to do Configure Jwt Options
+            services.AddAndValidateOptions<JwtOptions>(configuration);
             return services;
         }
 

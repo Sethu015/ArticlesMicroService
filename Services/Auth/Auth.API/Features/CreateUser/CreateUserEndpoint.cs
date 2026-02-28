@@ -1,10 +1,5 @@
 ﻿using Articles.Abstractions.Enums;
-using Auth.Domain.Events;
-using Auth.Domain.Users;
-using Blocks.Exceptions;
-using FastEndpoints;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 
 namespace Auth.API.Features.CreateUser
 {
