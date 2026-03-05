@@ -24,8 +24,6 @@ namespace Auth.API
             services
                 .AddFastEndpoints()
                 .SwaggerDocument()
-                .AddEndpointsApiExplorer()
-                .AddSwaggerGen()
                 .AddJwtAuthentication(configuration)
                 .AddJwtIdentity(configuration)
                 .AddAuthorization();

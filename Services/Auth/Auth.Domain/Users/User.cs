@@ -21,6 +21,7 @@ namespace Auth.Domain.Users
 
         private List<UserRole> _userRoles = new();
         public IReadOnlyCollection<UserRole> UserRoles => _userRoles.AsReadOnly();
-        public List<RefreshToken> RefreshTokens { get; set; } = new List<RefreshToken>();
+        private List<RefreshToken> _refreshTokens = new();
+        public IReadOnlyCollection<RefreshToken> RefreshTokens => _refreshTokens.AsReadOnly();
     }
 }

@@ -26,5 +26,10 @@ namespace Auth.Domain.Users
 
             return user;
         }
+
+        public void AddRefreshToken(RefreshToken refreshToken)
+        {
+            _refreshTokens.Add(refreshToken);
+        }
     }
 }

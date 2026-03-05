@@ -37,6 +37,7 @@ namespace Auth.Persistance.EntityConfigurations
             builder.Property(u => u.PictureUrl).HasMaxLength(MaxLength.C2048);
 
             builder.HasMany(u => u.UserRoles).WithOne().HasForeignKey(ur => ur.UserId).OnDelete(DeleteBehavior.Cascade);
+            builder.HasMany(u => u.RefreshTokens).WithOne().HasForeignKey(rt => rt.UserId).OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

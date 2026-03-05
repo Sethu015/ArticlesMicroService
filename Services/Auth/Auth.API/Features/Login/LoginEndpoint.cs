@@ -1,18 +1,14 @@
-﻿using Articles.Security;
-using Blocks.Core.Extensions;
-using Microsoft.Extensions.Options;
-using Microsoft.IdentityModel.Tokens;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Security.Cryptography;
-using System.Text;
+﻿using System.Security.Claims;
 using Blocks.AspNetCore.Extensions;
+using Auth.Application;
 
 namespace Auth.API.Features.Login
 {
     [HttpPost("login")]
-    public class LoginEndpoint(UserManager<User> _userManager, SignInManager<User> _signInManager, IOptions<JwtOptions> _options) : Endpoint<LoginCommand, LoginResponse>
+    public class LoginEndpoint(UserManager<User> _userManager, SignInManager<User> _signInManager,TokenFactory tokenFactory) : Endpoint<LoginCommand, LoginResponse>
     {
+        private readonly TokenFactory _tokenFactory = tokenFactory;
+
         public override async Task HandleAsync(LoginCommand command, CancellationToken ct)
         {
             var user = await _userManager.FindByEmailAsync(command.Email);
@@ -22,56 +18,11 @@ namespace Auth.API.Features.Login
             if(!result.Succeeded)
                 throw new BadRequestException($"Invalid Credentials for {command.Email}");
             var roles = await _userManager.GetRolesAsync(user);
-            var jwtToken = GenerateJWTToken(user.Id.ToString(), command.Email, user.UserName, roles, Array.Empty<Claim>());
-            var refreshToken = GenerateRefreshToken(HttpContext.GetClientIpAddress());
-            user.RefreshTokens.Add(refreshToken);
+            var jwtToken = _tokenFactory.GenerateJWTToken(user.Id.ToString(), command.Email, user.UserName, roles, Array.Empty<Claim>());
+            var refreshToken = _tokenFactory.GenerateRefreshToken(HttpContext.GetClientIpAddress());
+            user.AddRefreshToken(refreshToken);
             await Send.OkAsync(new LoginResponse(user.Email, jwtToken, refreshToken.Token));
         }
 
-        public RefreshToken GenerateRefreshToken(string clientIpAddress)
-        {
-            using (var rng = RandomNumberGenerator.Create())
-            {
-                var randomBytes = new byte[64];
-                rng.GetBytes(randomBytes);
-                return new RefreshToken
-                {
-                    Token = Convert.ToBase64String(randomBytes),
-                    CreatedOn = DateTime.UtcNow,
-                    ExpiresOn = DateTime.UtcNow.AddDays(7),
-                    CreatedByIp = clientIpAddress
-                };
-            }
-        }
-
-        public string GenerateJWTToken(string userId, string email, string userName, IEnumerable<string> roles, IEnumerable<Claim> additionalClaims)
-        {
-            var options = _options.Value;
-            var claims = new[]
-            {
-                new Claim(JwtRegisteredClaimNames.Sub,userId),
-                new Claim(JwtRegisteredClaimNames.Email,email),
-                new Claim(JwtRegisteredClaimNames.Jti,Guid.NewGuid().ToString()),
-                new Claim(JwtRegisteredClaimNames.Iat,DateTime.UtcNow.ToUnixEpochDate().ToString(),ClaimValueTypes.Integer64),
-
-                new Claim(ClaimTypes.Name,userName)
-            }
-            .Concat(roles.Select(r => new Claim(ClaimTypes.Role, r)))
-            .Concat(additionalClaims);
-
-            var symmentricKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(options.Secret));
-            var signInCreds = new SigningCredentials(symmentricKey, SecurityAlgorithms.HmacSha512);
-
-            var jwt = new JwtSecurityToken(
-                issuer: options.Issuer,
-                audience: options.Audience,
-                claims: claims,
-                notBefore: DateTime.UtcNow,
-                expires: options.Expiration,
-                signingCredentials: signInCreds);
-
-            var encodedToken = new JwtSecurityTokenHandler().WriteToken(jwt);
-            return encodedToken;
-        }
     }
 }
